@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>hello from stocks home</h1>
+
+{% if api_response %}
+    {% if api_response == "Error" %}
+        There was a problem. Please check your ticker symbol.
+    {% else %}
+        <h1>{{ api_response.companyName }}</h1> <br>
+        Price: {{ api_response.latestPrice }} <br>
+        Previous Price: {{ api_response.previousClose }} <br>
+        Market Cap: {{ api_response.marketCap }} <br>
+        YTD Change: {{ api_response.ytdChange }} <br>
+        52 Week High: {{ api_response.week52High }} <br>
+        52 Week Low: {{ api_response.week52Low }} <br>
+<!--        {{ api_response.companyName }} <br>-->
+    {% endif %}
+{% endif %}
 
 {% endblock %}

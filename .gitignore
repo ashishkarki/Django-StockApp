@@ -115,3 +115,5 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 stocks/.idea/
+
+stocks/quotes/my-secrets.py
