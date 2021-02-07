@@ -2,6 +2,10 @@
 
 {% block content %}
 
+{% if info %}
+    {{ info }}
+{% endif %}
+
 {% if api_response %}
     {% if api_response == "Error" %}
         There was a problem. Please check your ticker symbol.
