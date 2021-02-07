@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import StockForm
 
+
 # Create your views here.
 
 
@@ -49,3 +50,13 @@ def add_stock(request):
         return render(request, 'add_stock.html', {
             'all_tickers': all_tickers
         })
+
+
+def delete(request, stock_id):
+    from .models import Stock
+
+    ticker = Stock.objects.get(pk=stock_id)
+    ticker.delete()
+    messages.success(request, "Stock Deleted!!")
+
+    return redirect('add_stock')

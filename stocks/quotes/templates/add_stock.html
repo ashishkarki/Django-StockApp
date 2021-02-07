@@ -17,7 +17,18 @@
     </form>
 
     {% for ticker in all_tickers %}
-        {{ ticker }}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-1">
+                    {{ ticker }}
+                </div>
+                <div class="col-sm-2">
+                    <a href="{% url 'delete' ticker.id %}" class="btn btn-sm btn-danger">
+                        Delete Stock
+                    </a>
+                </div>
+            </div>
+        </div>
     {% endfor %}
 
 {% endblock %}
