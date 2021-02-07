@@ -2,33 +2,36 @@
 
 {% block content %}
 
-    <form class="d-flex"
-          action="{% url 'add_stock' %}"
-           method="POST">
-        {% csrf_token %}
-        <input class="form-control me-2"
-               type="search"
-               placeholder="Add Ticker to Portfolio"
-               aria-label="Search"
-               name="ticker">
-        <button class="btn btn-outline-success" type="submit">
-            Add Stock
-        </button>
-    </form>
+    <div class="add-stock">
+        <form class="d-flex"
+              action="{% url 'add_stock' %}"
+              method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2"
+                   type="search"
+                   placeholder="Add Ticker to Portfolio"
+                   aria-label="Search"
+                   name="ticker">
+            <button class="btn btn-outline-success" type="submit">
+                Add Stock
+            </button>
+        </form>
 
-    {% for ticker in all_tickers %}
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-1">
-                    {{ ticker }}
+        <div class="ticker-list">
+            {% for ticker in all_tickers %}
+                <div class="row" style="border: 1px solid #dc3545;margin: 0.2rem auto;">
+                    <div class="col-sm-6">
+                        {{ ticker }}
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{% url 'delete' ticker.id %}" class="btn btn-sm btn-danger">
+                            Delete Stock
+                        </a>
+                    </div>
                 </div>
-                <div class="col-sm-2">
-                    <a href="{% url 'delete' ticker.id %}" class="btn btn-sm btn-danger">
-                        Delete Stock
-                    </a>
-                </div>
-            </div>
+
+            {% endfor %}
         </div>
-    {% endfor %}
+    </div>
 
 {% endblock %}
