@@ -2,6 +2,22 @@
 
 {% block content %}
 
-    <h1>Add stock...</h1>
+    <form class="d-flex"
+          action="{% url 'add_stock' %}"
+           method="POST">
+        {% csrf_token %}
+        <input class="form-control me-2"
+               type="search"
+               placeholder="Add Ticker to Portfolio"
+               aria-label="Search"
+               name="ticker">
+        <button class="btn btn-outline-success" type="submit">
+            Add Stock
+        </button>
+    </form>
+
+    {% for ticker in all_tickers %}
+        {{ ticker }}
+    {% endfor %}
 
 {% endblock %}
