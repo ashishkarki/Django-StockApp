@@ -10,13 +10,23 @@
     {% if api_response == "Error" %}
         There was a problem. Please check your ticker symbol.
     {% else %}
-        <h1>{{ api_response.companyName }}</h1> <br>
-        Price: {{ api_response.latestPrice }} <br>
-        Previous Price: {{ api_response.previousClose }} <br>
-        Market Cap: {{ api_response.marketCap }} <br>
-        YTD Change: {{ api_response.ytdChange }} <br>
-        52 Week High: {{ api_response.week52High }} <br>
-        52 Week Low: {{ api_response.week52Low }} <br>
+        <div class="card my-card mx-auto">
+          <div class="card-header my-card-header">
+            {{ api_response.companyName }}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title my-card-title">
+                Price: {{ api_response.latestPrice }}
+            </h5>
+            <p class="card-text">
+                Previous Price: {{ api_response.previousClose }} <br>
+                Market Cap: {{ api_response.marketCap }} <br>
+                YTD Change: {{ api_response.ytdChange }} <br>
+                52 Week High: {{ api_response.week52High }} <br>
+                52 Week Low: {{ api_response.week52Low }} <br>
+            </p>
+          </div>
+        </div>
     {% endif %}
 {% endif %}
 
