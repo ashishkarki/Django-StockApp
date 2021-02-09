@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Press Delete to remove stocks from portfolio</h1>
+
+{% if all_tickers %}
+    <div class="container">
+        {% for ticker in all_tickers %}
+            <div class="row"
+                style="background-color: bisque;
+    border: 2px groove burlywood;
+    margin: 0.2rem;
+    padding: 0.3rem 0.5rem;">
+                <div class="col-sm-2">
+                    {{ ticker }}
+                </div>
+
+                <div class="col-sm-2">
+                    <a class="btn btn-sm btn-danger"
+                       href="{% url 'delete' ticker.id %}">
+                        Delete Stock
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    You haven't added any stocks to your portfolio!!
+{% endif %}
+
+{% endblock %}
