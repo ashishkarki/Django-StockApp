@@ -53,7 +53,7 @@ def add_stock(request):
 
         for ticker in all_tickers:
             api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + str(ticker) + "/quote?token"
-                                                                                        "=" + IEX_CLOUD_API_KEY)
+                                                                                                 "=" + IEX_CLOUD_API_KEY)
             try:
                 api_response = json.loads(api_request.content)
                 api_resp_list.append(api_response)
@@ -62,7 +62,7 @@ def add_stock(request):
 
         return render(request, 'add_stock.html', {
             'all_tickers': all_tickers,
-            'api_resp_list': api_resp_list,
+            'api_resp_list': __sorter(api_resp_list),
         })
 
 
@@ -73,4 +73,23 @@ def delete(request, stock_id):
     ticker.delete()
     messages.success(request, "Stock Deleted!!")
 
-    return redirect('add_stock')
+    return redirect('delete_stock')
+
+
+def delete_stock(request):
+    from .models import Stock
+
+    all_tickers = Stock.objects.all().order_by('ticker')
+
+    return render(request, 'delete_stock.html', {
+        'all_tickers': all_tickers
+    })
+
+
+def __get_company_name_as_key(map_obj):
+    return map_obj['companyName']
+
+
+def __sorter(list_of_maps):
+    list_of_maps.sort(key=__get_company_name_as_key)
+    return list_of_maps
