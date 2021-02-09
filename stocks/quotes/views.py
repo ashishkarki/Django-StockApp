@@ -34,7 +34,10 @@ def about(request):
 
 
 def add_stock(request):
+    import requests
+    import json
     from .models import Stock
+    from .my_secrets import IEX_CLOUD_API_KEY
 
     if request.method == 'POST':
         form = StockForm(request.POST or None)
@@ -46,9 +49,20 @@ def add_stock(request):
             return redirect('add_stock')
     else:
         all_tickers = Stock.objects.all()
+        api_resp_list = []
+
+        for ticker in all_tickers:
+            api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + str(ticker) + "/quote?token"
+                                                                                        "=" + IEX_CLOUD_API_KEY)
+            try:
+                api_response = json.loads(api_request.content)
+                api_resp_list.append(api_response)
+            except Exception:
+                api_response = "Error"
 
         return render(request, 'add_stock.html', {
-            'all_tickers': all_tickers
+            'all_tickers': all_tickers,
+            'api_resp_list': api_resp_list,
         })
 
 
